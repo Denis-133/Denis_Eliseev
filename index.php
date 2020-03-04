@@ -1,49 +1,47 @@
-<?php
+<!DOCTYPE html>
+<html lang="ru">
+<!DOCTYPE html>
+<html lang="ru">
+<head>
 
-$text ='
-Возле заправки, благо хоть там снег был расчищен, Клерфэ притормозил и посигналил. 
-Над придорожными столбами галдело воронье, в убогой мастерской за бензоколонкой кто-то с ожесточением колотил по железу. 
-Грохот прекратился, из дверей вышел паренек лет шестнадцати, в красном свитере и круглых очочках в простой металлической оправе.
- – Полный бак, – бросил Клерфэ, вылезая из машины.
- – Экстра?
- – Экстра. Поесть тут где-нибудь еще дадут?
- Паренек большим пальцем ткнул через дорогу.
- – Напротив. На обед у них сегодня бернское ассорти было. Вам цепи не снять?
- – Это еще зачем?
- – Для интересу. Там выше не дорога, а вообще каток.
- – До самого перевала?
- – До перевала не пропустят. Еще вчера проезд закрыли. А уж на такой-то спортивной букашке там вообще делать нечего.
- – Вот как? – усмехнулся Клерфэ. – Ты меня, пожалуй, заинтриговал.
- – Вы меня тоже, – отозвался паренек.
- Трактир встретил его спертой духотой долгой зимы и прогорклого пива. Клерфэ заказал вяленый ростбиф, сыр и графинчик белого эгля. Попросил официантку накрыть ему на террасе. 
- Вроде не особо холодно. Зато необъятность неба – во всю васильковую синь.
- – Из шланга вашу красотку не обдать? – через дорогу крикнул паренек с заправки. – Ей бы совсем не помешало.
- – Не надо. Стекло только протри.';
- $text = mb_strtolower($text, 'UTF-8');
- $text = str_replace(['!', '?', '–','.',','], '', $text);
- $text = preg_replace('/^([" "]+)|([" "]){2,}/m', " ", $text);
- echo "<pre>";
- echo "$text";
- echo "</pre>";
- $arr = explode(' ',$text);
- $arr = array_map('trim', $arr);
- $array_slov = array_unique($arr);
- foreach ($arr as $key1 => $slovo) {
-     $slovo = trim($slovo);
- if ($slovo == false or $slovo == "") {
-     unset($arr[$key1]);
- } 
- }
- 
-  foreach ($array_slov as $keys => $value) {
-  $num = 1;
-     foreach ($arr as $key1 => $slovo) {
-         if ($value===$slovo) {
-             $num++;
-         }  
-     }
-     echo "Количество вхождений "."($value)".":=>"."$num"."</br>";
-     }
- echo "Количество слов в тексте:".count($arr);
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="Z:\home\newsite\www\css\style.css">
 
-?>
+	<meta http-equiv="Content-Type" content="text/html">
+  <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PHP урок 4(Формы)</title>
+</head>
+<body>
+
+<!--Шапка сайта, с окнами Регистрация и Авторизация-->
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+  <h5 class="my-0 mr-md-auto font-weight-normal">Учебная форма обработки данных</h5>
+</div>
+
+<!--Шапка сайта с заголовком, где расположена основная информация-->
+
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4 mt-5 mb-5">Форма для заполнения</h1>
+</div>
+<div class = "container mt-5 text-center">
+<form action = "check.php" accept-charset="utf-8" method = "post" enctype="multipart/form-data">
+<div class="custom-file px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <input type="file" name="docs[]" class="custom-file-input" id="customFile" multiple>
+  <label class="custom-file-label" for="customFile">Выберите файл...</label>
+</div>
+<br>
+<textarea name = "text" class = "form-control" placeholder = "Введите Ваш текст"></textarea>
+<br>
+<button type = "submit" name="button" class = "btn btn-success">Отправить</button>
+<br>
+ </form>
+</div>
+<!--Подвал сайта, тут будет распологатся поле с информацией-->
+
+<footer>
+</footer>
+</body>
+</html>
