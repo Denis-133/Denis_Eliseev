@@ -1,12 +1,16 @@
 <?php
 mb_internal_encoding("UTF-8");
+
 if (!empty($_POST['text'])) {
 $time1 = "-1".date("YmdHis");
 touch($time1.'.csv');
  $text1 = $_POST['text'];
  $text1 = mb_strtolower($text1, 'UTF-8');
- $text1 = str_replace(['!', '?', '–','.',','], '', $text1);
+ $text1 = str_replace(['!', '?', '–','.',',','"'], '', $text1); 
+ $text1 = str_replace(array('«', '»'), '', $text1);
+ $text1 = htmlspecialchars($text1);
  $text1 = preg_replace('/^([" "]+)|([" "]){2,}/m', " ", $text1);
+
  echo "<pre>";
  echo "$text1";
  echo "</pre>";
@@ -54,13 +58,17 @@ $time2 = "-2".date("YmdHis");
 touch($time2.'.csv');
  echo "</br>";
  $text2 = file_get_contents($doc[0]);
- $text2 = mb_convert_encoding($text2, 'UTF-8');
+ //$text2 = mb_convert_encoding($text2, 'UTF-8');
  echo "<pre>";
  var_dump ($text2);
  echo "</pre>";
  $text2 = mb_strtolower($text2, 'UTF-8');
- $text2 = str_replace(['!', '?', '–','.',','], '', $text2);
+ $text2 = str_replace(['!', '?', '–','.',',','"'], '', $text2); 
+ $text2 = str_replace(array('«', '»'), '', $text2);
+ $text2 = htmlspecialchars($text2);
+ $text2 = str_replace('&QUOT;', '', $text2);
  $text2 = preg_replace('/^([" "]+)|([" "]){2,}/m', " ", $text2);
+
  $arr2 = explode(' ',$text2);
  $arr2 = array_map('trim', $arr2);
  $array_slov2 = array_unique($arr2);
@@ -80,10 +88,15 @@ touch($time2.'.csv');
      fputs($fp2, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
      fputcsv($fp2, array($key_count2, $fields2), ';');
  }
+ fputcsv($fp2, array("Количество слов в тексте: ", count($arr2)), ';');
  fclose($fp2);
  if (!mkdir('C:\Users\Денис\Desktop\OSPanel\domains\mediasoft1',0777,true) && !is_dir($time2.'.csv')){
     echo "$time2.'.cvs'"."not created";
     }
 }
 
+
+
+
+header("Refresh: 5;  url=\index.php");
 ?>
