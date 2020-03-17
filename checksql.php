@@ -34,15 +34,17 @@ foreach ($count1 as $word1 => $count_1) {
 }
 }
 
-if (!empty($_FILES['docs']['name'])) {
+if (!empty($_FILES['docs']['name']) && ($_FILES['docs']['size'])>0) {
     $doc = $_FILES['docs']['name'];
     $docs = $_FILES['docs'];
+
     foreach ($docs['tmp_name'] as $index => $Path) {
-        if (!array_key_exists($index, $docs['name'])) {
+        if (!array_key_exists($index, $docs['name']) && $docs['tmp_name']!=none) {
             continue;
         }
         move_uploaded_file($Path, __DIR__.DIRECTORY_SEPARATOR.$docs['name'][$index]);
     }
+ if (filesize($doc[0])>0) {
  $text_file = file_get_contents($doc[0]);
  $text2 = $text_file;
  $text2 = mb_strtolower($text2, 'UTF-8');
@@ -54,25 +56,25 @@ if (!empty($_FILES['docs']['name'])) {
  $arr2 = explode(' ',$text2);
  $arr2 = array_map('trim', $arr2);
  $array_slov2 = array_unique($arr2);
-
  $a2 = count($arr2);
  $pdo -> query($selectQuery2)->fetchAll(PDO::FETCH_ASSOC);
  $insertQuery3 = "INSERT INTO uploaded_text (content, date, words_count) VALUES('$text_file',NOW(),'$a2')";
  $pdo -> exec($insertQuery3) or die(print_r($pdo->errorInfo(), true));
  $text_id2 = $pdo->lastInsertId();
-
  foreach ($arr2 as $key2 => $slovo2) {
      $slovo2 = trim($slovo2);
  if ($slovo2 == false or $slovo2 == "") {
      unset($arr2[$key2]);
  } 
  }
-
  $count2 = array_count_values($arr2);
  foreach ($count2 as $word2 => $count_2) {
     $insertQuery4 = "INSERT INTO word (text_id,word,count) VALUES('$text_id2','$word2','$count_2')";
     $pdo -> exec($insertQuery4) or die(print_r($pdo->errorInfo(), true));
- }
 }
+}
+}
+
+
 header("Refresh: 5;  url=\index.php");
 ?>

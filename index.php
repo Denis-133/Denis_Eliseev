@@ -34,8 +34,6 @@ $selectQuery2 = 'SELECT*FROM word';
 
 //$rows = mysqli_num_rows($result);
 //$result = $pdo->query($selectQuery1, MYSQLI_USE_RESULT);
-$Allrows1 = $pdo->query($selectQuery1)->FetchAll(PDO::FETCH_ASSOC);
-$Onerow1 = $pdo->query($selectQuery1)->Fetch(PDO::FETCH_ASSOC);
 $result = $pdo->query($selectQuery1); 
 
 while ($row = $result->Fetch(PDO::FETCH_ASSOC))
@@ -43,9 +41,9 @@ while ($row = $result->Fetch(PDO::FETCH_ASSOC))
        $id = $row['id'];
        $short_content = mb_strimwidth($row['content'], 0, 25, "...");
        echo "<ul>";
-       echo "<li>id: $id</li>";
-       echo "<li>id: $short_content</li>";
-       echo '<li><a class="btn" href="report.php" style="margin-left: 2px">Ссылка на детальный просмотр</a> </li>';
+       echo "<li>id:".$id."</li>";
+       echo "<li>Часть текста: ".$short_content."</li>";
+       echo '<li><a class="btn" href="report.php?id='.$id.'"style="margin-left: 2px">Ссылка на детальный просмотр текста</a> </li>';
        echo "</ul>";
    }
 

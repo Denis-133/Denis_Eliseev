@@ -27,29 +27,26 @@
 
 
 <?php
+$id = $_GET['id'];
 $pdo = new PDO('mysql:host=127.0.0.1;port=3306;dbname=media', 'root', '');
-$selectQuery1 = 'SELECT*FROM uploaded_text';
-$selectQuery2 = 'SELECT*FROM word';
-//$count = $pdo->rowCount();
-
-
-//$rows = mysqli_num_rows($result);
-//$result = $pdo->query($selectQuery1, MYSQLI_USE_RESULT);
-$Allrows1 = $pdo->query($selectQuery1)->FetchAll(PDO::FETCH_ASSOC);
-$Onerow1 = $pdo->query($selectQuery1)->Fetch(PDO::FETCH_ASSOC);
-$result = $pdo->query($selectQuery1); 
-
-while ($row = $result->Fetch(PDO::FETCH_ASSOC))
-   {
-       $id = $row['id'];
-       $short_content = mb_strimwidth($row['content'], 0, 25, "...");
+$selectQuery1 = "SELECT*FROM uploaded_text where id='$id'";
+$selectQuery2 = "SELECT*FROM word where text_id='$id'";
+$result1 = $pdo->query($selectQuery1);
+$result2 = $pdo->query($selectQuery2); 
+$row1 = $result1->Fetch(PDO::FETCH_ASSOC);
+$text = $row1['content'];
+$date = $row1['date'];
+$words_count = $row1['words_count'];
+echo "<h3>Текст:".$text."; Дата загрузки:".$date."; Количество слов:".$words_count."</h3>";
+while ($row2 = $result2->Fetch(PDO::FETCH_ASSOC))
+   {   
+       $word = $row2['word'];
+       $count = $row2['count'];
+       $words_count = $row2['words_count'];
        echo "<ul>";
-       echo "<li>id: $id</li>";
-       echo "<li>id: $short_content</li>";
-       echo '<li><a class="btn" href="report.php" style="margin-left: 2px">Ссылка на детальный просмотр</a> </li>';
+       echo "<li><p>Слово: ".$word."; Количесво вхождений:".$count."</p></li>";
        echo "</ul>";
    }
-
 ?>
   
 
