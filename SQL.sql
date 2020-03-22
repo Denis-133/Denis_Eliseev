@@ -1,27 +1,30 @@
 CREATE DATABASE media;
 USE media;
-CREATE TABLE word
+
+CREATE TABLE Users
 (
 id int AUTO_INCREMENT,
-text_id int null,
-word text null,
-count int null,
+login varchar(50) null,
+email varchar(150) null,
+password varchar(150) null,
 CONSTRAINT media_pk
-PRIMARY KEY (id),
-FOREIGN KEY (text_id) REFERENCES uploaded_text(id)
+PRIMARY KEY (id)
 ) ENGINE = INNODB
 CHARACTER SET utf8
 COLLATE utf8_general_ci;
 
-
-CREATE TABLE uploaded_text
+CREATE TABLE photos
 (
 id int AUTO_INCREMENT,
-content text null,
-date date null,
-words_count int null,
+user_id int null,
+path text null,
+created_at varchar(150),
+tags text null,
+views int null,
+title text null,
 CONSTRAINT media_pk
 PRIMARY KEY (id),
+FOREIGN KEY (user_id) REFERENCES Users(id)
 ) ENGINE = INNODB
 CHARACTER SET utf8
 COLLATE utf8_general_ci;

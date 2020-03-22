@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -21,39 +22,19 @@
 <!--Шапка сайта, с окнами Регистрация и Авторизация-->
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
   <h5 class="my-0 mr-md-auto font-weight-normal">Учебная страница</h5>
-  <a class="btn btn-outline-primary" href="form.php" style="margin-left: 10px">Форма загрузки</a>
+  <a class="btn btn-outline-primary" href="register.php" style="margin-left: 10px">Регистрация</a>
+  <a class="btn btn-outline-primary" href="avtorization.php" style="margin-left: 10px">Авторизация</a>
+  <a class="btn btn-outline-primary" href="loadcontent.php" style="margin-left: 10px">Загрузить фото</a>
 </div>
 
 
 <?php
-$pdo = new PDO('mysql:host=127.0.0.1;port=3306;dbname=media', 'root', '');
-$selectQuery1 = 'SELECT*FROM uploaded_text';
-$selectQuery2 = 'SELECT*FROM word';
-//$count = $pdo->rowCount();
-
-
-//$rows = mysqli_num_rows($result);
-//$result = $pdo->query($selectQuery1, MYSQLI_USE_RESULT);
-$result = $pdo->query($selectQuery1); 
-
-while ($row = $result->Fetch(PDO::FETCH_ASSOC))
-   {
-       $id = $row['id'];
-       $short_content = mb_strimwidth($row['content'], 0, 25, "...");
-       echo "<ul>";
-       echo "<li>id:".$id."</li>";
-       echo "<li>Часть текста: ".$short_content."</li>";
-       echo '<li><a class="btn" href="report.php?id='.$id.'"style="margin-left: 2px">Ссылка на детальный просмотр текста</a> </li>';
-       echo "</ul>";
-   }
-
 ?>
   
 
   <footer class="pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">
       <div class="col-12 col-md">
-        <!--<img class="mb-2" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">-->
         <small class="d-block mb-3 text-muted">© 2017-2019</small>
       </div>
       <div class="col-6 col-md">
