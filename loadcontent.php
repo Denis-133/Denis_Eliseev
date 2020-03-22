@@ -77,16 +77,16 @@ function reArrayFiles(&$file_post) {
   return $file_ary;
 }
   $file_ary = reArrayFiles($_FILES['userfile']);
-   echo "<pre>";
+  echo "<pre>";
   var_dump($file_ary);
   echo "</pre>";
-
+  $pdo = new PDO('mysql:host=127.0.0.1;port=3306;dbname=media', 'root', '');
   foreach ($file_ary as $key_file => $value_file) {
     if (in_array($value_file['type'], $types) && $value_file['size']<=$size) {
       $value_file["name"] = "$loadfilename";
       var_dump($value_file);
-      $insertQueryPhoto = "INSERT INTO photos (user_id,path,created_at,tags,title) VALUES('$activeuserid','$path'+'$loadfilename',GETDATE(),'$tags','$title')";
-      $pdo -> exec($insertQueryPhoto) or die(print_r($pdo->errorInfo(), true));
+      $insertQueryPhoto = "INSERT INTO `photos` (user_id,path,created_at,tags,title) VALUES('$activeuserid','$path'+'$loadfilename',NOW(),'$tags','$title')";
+      $pdo -> query($insertQueryPhoto) or die(print_r($pdo->errorInfo(), true));
       
     }
 
