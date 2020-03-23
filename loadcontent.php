@@ -59,12 +59,13 @@ $tags = $_POST['tags'];
 $title = $_POST['title'];
         // Пути загрузки файлов
 $path = '/image';
-$sqlpath = '\image/'.'';
+
 // Допустимые параметры файла
 $size = 5120000;
 $types = array('image/gif', 'image/png', 'image/jpeg');
 $time = date("YmdHis");
-$loadfilename = $_SESSION['id']."_".$time."_".rand(1,10);
+
+
 function reArrayFiles(&$file_post) {
   $file_ary = array();
   $file_count = count($file_post['name']);
@@ -83,16 +84,13 @@ function reArrayFiles(&$file_post) {
   $pdo = new PDO('mysql:host=127.0.0.1;port=3306;dbname=media', 'root', '');
   foreach ($file_ary as $key_file => $value_file) {
     if (in_array($value_file['type'], $types) && $value_file['size']<=$size) {
+      $loadfilename = $_SESSION['id']."_".$time."_".rand(1,10);
       $value_file["name"] = "$loadfilename";
-      var_dump($value_file);
-      $insertQueryPhoto = "INSERT INTO `photos` (user_id,path,created_at,tags,title) VALUES('$activeuserid','$path'+'$loadfilename',NOW(),'$tags','$title')";
+      $sqlpath = 'image/'.$loadfilename;
+      $insertQueryPhoto = "INSERT INTO `photos` (user_id,path,created_at,tags,title) VALUES('$activeuserid','$sqlpath',NOW(),'$tags','$title')";
       $pdo -> query($insertQueryPhoto) or die(print_r($pdo->errorInfo(), true));
-      
     }
-
-
-    
-    //var_dump($value_file);
+   else{echo "Недопустимый размер или расширение файла";}
   }
 
 
