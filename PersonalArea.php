@@ -6,9 +6,9 @@ require_once('config.php');
 <head>
     
     <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">-->
-
-    
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    
+    
     <!--<link rel="stylesheet" href="/feedback/vendors/bootstrap/css/bootstrap.min.css">-->
     <!--<link rel="stylesheet" href="/feedback/css/main.css">-->
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -27,16 +27,18 @@ require_once('config.php');
   <a class="btn btn-outline-primary" href="register.php" style="margin-left: 10px">Регистрация</a>
   <a class="btn btn-outline-primary" href="avtorization.php" style="margin-left: 10px">Авторизация</a>
   <a class="btn btn-outline-primary" href="loadcontent.php" style="margin-left: 10px">Загрузить фото</a>
-  <a class="btn btn-outline-primary" href="PersonalArea.php" style="margin-left: 10px">Личный кабинет</a>
+  <a class="btn btn-outline-primary" href="index.php" style="margin-left: 10px">Главная страница</a>
 </div>
+
 <div class="container">
 <?php
-$showImage = new Image($pdo);
-$showImage->show_image();
+if (!empty($_SESSION['login']) && !empty($_SESSION['id']) ) {
+$newImage = new Image($pdo);
+$newImage->show_personal_photo();
+}else{
+echo "<p>Зарегестрируйтесь или авторизируйтесь, чтобы получить доступ к личному кабинету!</p>";}
 ?>
- </div> 
- </div>
-
+</div>
 
   <footer class="pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">

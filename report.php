@@ -24,6 +24,7 @@ require_once('config.php');
 <!--Шапка сайта, с окнами Регистрация и Авторизация-->
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
   <h5 class="my-0 mr-md-auto font-weight-normal">Учебная страница</h5>
+  <a class="btn btn-outline-primary" href="index.php" style="margin-left: 10px">Главная страница</a>
   <a class="btn btn-outline-primary" href="register.php" style="margin-left: 10px">Регистрация</a>
   <a class="btn btn-outline-primary" href="avtorization.php" style="margin-left: 10px">Авторизация</a>
   <a class="btn btn-outline-primary" href="loadcontent.php" style="margin-left: 10px">Загрузить фото</a>
@@ -32,7 +33,7 @@ require_once('config.php');
 <div class="container">
 <?php
 $showImage = new Image($pdo);
-$showImage->show_image();
+$showImage->show_one_photo();
 ?>
  </div> 
  </div>
